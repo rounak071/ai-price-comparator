@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Product Price Comparator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: linear-gradient(135deg, #10152d, #22205b, #10152d);
+        }
+
+        nav {
+            padding: 22px 8%;
+            border-bottom: 1px solid #ffffff20;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        nav span {
+            color: #a99aff;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 75px auto;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .tag {
+            color: #c7bbff;
+            letter-spacing: 2px;
+            font-size: 12px;
+        }
+
+        h1 {
+            font-size: clamp(32px, 6vw, 54px);
+            line-height: 1.15;
+            margin: 20px 0;
+        }
+
+        h1 span {
+            color: #a99aff;
+        }
+
+        .description {
+            color: #c4c7df;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 35px;
+        }
+
+        .upload-box {
+            max-width: 600px;
+            margin: auto;
+            padding: 35px 20px;
+            background: #ffffff0c;
+            border: 1px dashed #9385ff;
+            border-radius: 20px;
+        }
+
+        input {
+            display: block;
+            max-width: 100%;
+            margin: 25px auto;
+        }
+
+        button {
+            background: #8b78ff;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #725de9;
+        }
+
+        .note {
+            color: #aeb2d1;
+            font-size: 13px;
+            margin-top: 22px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #aeb2d1;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>Price<span>Lens</span> AI</nav>
+
+    <main>
+        <p class="tag">SMARTER SHOPPING STARTS HERE</p>
+
+        <h1>Find a product.<br><span>Compare its price.</span></h1>
+
+        <p class="description">
+            Upload a product image to begin your search.
+            Our project aims to identify products and help
+            you compare prices across supported shopping sources.
+        </p>
+
+        <div class="upload-box">
+            <h2>Upload Product Image</h2>
+            <p>Choose a product photo from your computer.</p>
+
+            <form action="/identify" method="POST"
+                  enctype="multipart/form-data">
+                <input type="file" name="product_image"
+                       accept=".jpg,.jpeg,.png" required>
+
+                <button type="submit">Identify Product →</button>
+            </form>
+
+            <p class="note">Supported formats: JPG, JPEG and PNG</p>
+        </div>
+    </main>
+
+    <footer>
+        B.Tech CSE Minor Project · AI-Based Product Identification
+    </footer>
+</body>
+</html>

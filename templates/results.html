@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriceLens AI Results</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 25px 15px;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: linear-gradient(135deg, #10152d, #27205b);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .card {
+            padding: 24px;
+            margin: 20px 0;
+            background: #ffffff12;
+            border: 1px solid #ffffff25;
+            border-radius: 18px;
+        }
+
+        h1, h2, h3 { color: #c4b7ff; }
+
+        .uploaded {
+            display: block;
+            max-width: 100%;
+            max-height: 320px;
+            margin: 20px auto;
+            border-radius: 12px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .product {
+            padding: 16px;
+            background: #ffffff0c;
+            border: 1px solid #ffffff20;
+            border-radius: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .product img {
+            width: 100%;
+            height: 190px;
+            object-fit: contain;
+            background: #ffffff08;
+            border-radius: 8px;
+        }
+
+        .muted { color: #c4c7df; }
+
+        .store-link {
+            display: inline-block;
+            margin: 5px 4px 5px 0;
+            padding: 9px 11px;
+            border-radius: 7px;
+            background: #51428f;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back {
+            display: inline-block;
+            margin: 15px 0 25px;
+            color: #d1c6ff;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="card">
+        <h1>PriceLens AI</h1>
+        <h2>Your Uploaded Product</h2>
+        <img class="uploaded" src="{{ image_url }}"
+             alt="Uploaded product image">
+    </div>
+
+    {% if error %}
+        <div class="card">
+            <h2>Analysis Error</h2>
+            <p>{{ error }}</p>
+            <p class="muted">
+                Check the VS Code terminal for the detailed error.
+            </p>
+        </div>
+    {% else %}
+
+        <div class="card">
+            <h2>AI Image Predictions</h2>
+
+            {% if predictions %}
+                {% for item in predictions %}
+                    <p>
+                        <strong>
+                            {{ item.label | replace("_", " ") | title }}
+                        </strong>
+                        — {{ item.confidence }}% model confidence
+                    </p>
+                {% endfor %}
+            {% else %}
+                <p>No AI predictions available.</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2>Visually Similar Products</h2>
+            <p class="muted">
+                Matches are ranked against images in the local catalog.
+                Scores are similarity signals, not probabilities.
+            </p>
+
+            {% if similar_products %}
+                <div class="products">
+                    {% for product in similar_products %}
+                        <div class="product">
+                            <img src="{{ product.image_url }}"
+                                 alt="{{ product.title }}">
+
+                            <h3>{{ product.title }}</h3>
+
+                            <p>
+                                Similarity score:
+                                {{ product.similarity }}%
+                            </p>
+
+                            <h3>Search on</h3>
+
+                            {% for store in product.stores %}
+                                <a class="store-link"
+                                   href="{{ store.search_url }}"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    {{ store.store }} ↗
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>
+                    No catalog matches found. Add reference product
+                    images and entries to catalog.json, then try again.
+                </p>
+
+                <p class="muted">
+                    You can also search the predicted product category:
+                </p>
+
+                {% for store in fallback_stores %}
+                    <a class="store-link"
+                       href="{{ store.search_url }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        {{ store.store }} ↗
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    {% endif %}
+
+    <a class="back" href="/">← Upload another image</a>
+
+</div>
+</body>
+</html>

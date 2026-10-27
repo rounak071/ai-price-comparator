@@ -1,0 +1,15 @@
+
+[
+  {
+    "title": "Black running shoes",
+    "image": "static/product_catalog/black_running_shoes.jpg"
+  },
+  {
+    "title": "White casual sneakers",
+    "image": "static/product_catalog/white_sneakers.jpg"
+  },
+  {
+    "title": "Headphones",
+    "image": "static/product_catalog/blue_denim_jacket.jpg"
+  }
+]
